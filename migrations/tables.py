@@ -1,15 +1,9 @@
-from sqlalchemy import create_engine, MetaData, Table, String, Integer, Column, Text, DateTime, Boolean
-from datetime import datetime
 from math import floor
 import time as t
 ###
-from sqlalchemy import create_engine, MetaData, Table, Integer, String, \
-    Column, DateTime, ForeignKey, Numeric
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
-from datetime import datetime
-
-from sqlalchemy import MetaData, Table, Integer, String, Column, Text, DateTime, Boolean
-from sqlalchemy.orm import registry
+from sqlalchemy import MetaData, Integer, Column, Text, DateTime
 from datetime import datetime
 
 __ENGINE__ = create_engine('sqlite:////home//funeralclown/yarmarka/migrations/yarmarka.db')
@@ -38,6 +32,7 @@ class FeedbackT(__BASE__):
     email = Column(Text())
     number = Column(Text())
     comment = Column(Text())
+    
     time = Column(Integer(), default=floor(t.time()), onupdate=floor(t.time()))
 
 
@@ -48,8 +43,9 @@ class MembersT(__BASE__):
     pavilion = Column(Text(), nullable=False, unique=True)
     title = Column(Text())
     text = Column(Text())
-    time = Column(Integer(), default=floor(t.time()), onupdate=floor(t.time()))
     img = Column(Text())
+    
+    time = Column(Integer(), default=floor(t.time()), onupdate=floor(t.time()))
     date = Column(Text(), default=t.strftime('%d.%m.%Y %H:%M', t.localtime(t.time())),
                   onupdate=t.strftime('%d.%m.%Y %H:%M', t.localtime(t.time())))
 
@@ -61,8 +57,9 @@ class PostsT(__BASE__):
     url = Column(Text(), nullable=False, unique=True)
     title = Column(Text())
     text = Column(Text())
-    time = Column(Integer(), default=floor(t.time()), onupdate=floor(t.time()))
     img = Column(Text())
+    
+    time = Column(Integer(), default=floor(t.time()), onupdate=floor(t.time()))
     date = Column(Text(), default=t.strftime('%d.%m.%Y %H:%M', t.localtime(t.time())),
                   onupdate=t.strftime('%d.%m.%Y %H:%M', t.localtime(t.time())))
 
@@ -70,8 +67,10 @@ class PostsT(__BASE__):
 class UsersT(__BASE__):
     __tablename__ = 'users'
     id = Column(Integer(), primary_key=True)
+    
     user = Column(Text(), nullable=False)
     psw = Column(Text(), nullable=False)
 
 
 __BASE__.metadata.create_all(__ENGINE__)
+
